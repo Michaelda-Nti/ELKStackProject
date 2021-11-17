@@ -76,41 +76,7 @@ The following screenshot displays the result of running `docker ps` after succes
 
 The playbook is duplicated below:
 
----
-- name: Config Web VM with Docker
-  hosts: webservers
-  become: true
-  tasks:
-  - name: docker.io
-    apt:
-      force_apt_get: yes
-      update_cache: yes
-      name: docker.io
-      state: present
-
-  - name: Install pip3
-    apt:
-      force_apt_get: yes
-      name: python3-pip
-      state: present
-
-  - name: Install Docker python module
-    pip:
-      name: docker
-      state: present
-
-  - name: download and launch a docker web container
-    docker_container:
-      name: dvwa
-      image: cyberxsecurity/dvwa
-      state: started
-      restart_policy: always
-      published_ports: 80:80
-
-  - name: Enable docker service
-    systemd:
-      name: docker
-      enabled: yes
+![ansible playbook](https://user-images.githubusercontent.com/88116751/142233889-1f212ace-418f-46a6-86e5-b7adf3ce37f4.PNG)
 
 
 ### Target Machines & Beats
