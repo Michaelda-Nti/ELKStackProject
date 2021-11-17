@@ -99,7 +99,7 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 
-- Copy the [ansible yaml file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555859/ansible.yaml.file.txt) file and the [ansible host file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555937/ansible.host.file.txt) file to /etc/ansible
+- Copy the [ansible yaml file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555859/ansible.yaml.file.txt) and the [ansible host file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555937/ansible.host.file.txt) to /etc/ansible
 
 - Update the [ansible host file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555937/ansible.host.file.txt) file to include the private IP address of the machines you want the playbook to run on. If the hosts file does not exist, create one in the /etc/ansible folder and add the IP addresses as shown in the example below: 
 
