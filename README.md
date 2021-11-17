@@ -3,10 +3,9 @@ Cybersecurity Bootcamp first project
 
 The files in this repository were used to configure the network depicted below.
 
-https://github.com/Michaelda-Nti/ELKStackProject/blob/main/Diagrams/NETWORK%20DIAGRAM.PNG
+![NETWORK DIAGRAM](https://user-images.githubusercontent.com/88116751/142226124-684d57ce-7aad-45a8-a35b-5f908f09c3e6.PNG)
 
-
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the https://github.com/Michaelda-Nti/ELKStackProject/blob/main/Ansible/filebeatyml.txt file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the [filebeatyml.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555677/filebeatyml.txt) file may be used to install only certain pieces of it, such as Filebeat.
 
 This document contains the following details:
 - Description of the Topology
@@ -23,7 +22,7 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the log files and system metrics such as CPU usage, suo escalation failures, attempted SSH logins etc.
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the log files and system metrics such as CPU usage, sudo escalation failures, attempted SSH logins etc.
 
 The configuration details of each machine may be found below.
 
@@ -63,7 +62,7 @@ A summary of the access policies in place can be found in the table below.
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because it will ensure our automated configurations will do exactly the same thing every time they run, eliminating as much variability between configurations as possible.
 
-The playbook implements the following tasks:
+The playbook, [ansible yaml file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555700/ansible.yaml.file.txt) implements the following tasks:
 1.	Install docker.io
 2.	Install pip3
 3.	Install docker python module
@@ -73,9 +72,46 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![elkcontainer](https://user-images.githubusercontent.com/88116751/142227128-2c687479-ea3a-4a3b-bc78-7836de44a417.PNG)
 
-The playbook is duplicated below.
+The playbook is duplicated below:
+
+---
+- name: Config Web VM with Docker
+  hosts: webservers
+  become: true
+  tasks:
+  - name: docker.io
+    apt:
+      force_apt_get: yes
+      update_cache: yes
+      name: docker.io
+      state: present
+
+  - name: Install pip3
+    apt:
+      force_apt_get: yes
+      name: python3-pip
+      state: present
+
+  - name: Install Docker python module
+    pip:
+      name: docker
+      state: present
+
+  - name: download and launch a docker web container
+    docker_container:
+      name: dvwa
+      image: cyberxsecurity/dvwa
+      state: started
+      restart_policy: always
+      published_ports: 80:80
+
+  - name: Enable docker service
+    systemd:
+      name: docker
+      enabled: yes
+
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -97,9 +133,10 @@ Metricbeat collects system’s metrics and application metrics and sends them to
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the playbook file to /etc/ansible
 
-- Update the hosts file to include the private IP address of the machines you want the playbook to run on. If the hosts file does not exist, create one in the /etc/ansible folder and add the IP addresses as shown in the example below: 
+- Copy the [ansible yaml file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555859/ansible.yaml.file.txt) file and the [ansible host file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555937/ansible.host.file.txt) file to /etc/ansible
+
+- Update the [ansible host file.txt](https://github.com/Michaelda-Nti/ELKStackProject/files/7555937/ansible.host.file.txt) file to include the private IP address of the machines you want the playbook to run on. If the hosts file does not exist, create one in the /etc/ansible folder and add the IP addresses as shown in the example below: 
 
 [webservers]
 10.0.0.5 ansible_python_interpreter=/usr/bin/python3
@@ -113,4 +150,3 @@ SSH into the control node and follow the steps below:
 
 After running the playbook, navigate to http://<ELK.VM.External.IP>:5601/app/kibana to check that the installation worked as expected.
 
-As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
