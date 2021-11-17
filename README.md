@@ -76,8 +76,7 @@ The following screenshot displays the result of running `docker ps` after succes
 
 The playbook is duplicated below:
 
-![ansible playbook](https://user-images.githubusercontent.com/88116751/142233889-1f212ace-418f-46a6-86e5-b7adf3ce37f4.PNG)
-
+![Capture](https://user-images.githubusercontent.com/88116751/142234680-515f528d-5b63-4216-acae-90c63b8c41f4.PNG)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
