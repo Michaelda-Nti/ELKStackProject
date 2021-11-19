@@ -114,4 +114,9 @@ SSH into the control node and follow the steps below:
 - Run the playbook with the command: ansible-playbook (name of playbook) (machine name). eg. ansible-playbook elkplaybook.yml webservers. 
 
 After running the playbook, navigate to http://<ELK.VM.External.IP>:5601/app/kibana to check that the installation worked as expected.
+If the Kibana page loads, your installation worked as expected. 
+
+In order to check whether the data was successfully received, navigate to Add Log Data and then to System Logs. Scroll down to module status and click on Check Data. 
+If you receive the message below, data was successfully received and the ELK stack configuration was successful. 
+![filbeatmodule](https://user-images.githubusercontent.com/88116751/142519737-9813bd29-9d31-4b82-b279-3d800654f128.PNG)
 
